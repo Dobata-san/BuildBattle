@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Build Battle Regulations</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    background: url("back.jpg") center/cover no-repeat fixed;
+}
+
+/* LOGO */
+.logo {
+    position: absolute;
+    top: 1%;
+    width: 200px;
+    height:auto;
+    z-index: 1000;
+}
+
+/* MUSIC BUTTON (GIF) */
+#musicGif {
+    position: fixed;
+    top: 1%;
+    right: 2.2%;
+    width: 50px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+/* NOW PLAYING */
+.nowPlaying {
+    position: fixed;
+    top: 4%;
+    right: 1%;
+    width: 100px;
+    height: 50px;
+    overflow: hidden;
+    display: none;
+    align-items: center;
+    padding: 5px;
+}
+
+.scroll-text {
+    white-space: nowrap;
+    color: white;
+    font-size: 14px;
+    animation: scrollLeft 6s linear infinite;
+}
+
+@keyframes scrollLeft {
+    from { transform: translateX(100%); }
+    to { transform: translateX(-100%); }
+}
+
+/* CAROUSEL */
+.carousel {
+    width: 1280px;
+    height: 720px;
+    margin: 120px auto;
+    overflow: hidden;
+    position: relative;
+
+    background: url("BBR.png") center/cover no-repeat;
+    border-radius: 10px;
+}
+
+.slides {
+    display: flex;
+    height: 100%;
+    transition: transform 0.6s ease;
+}
+
+.slide {
+    min-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* BUTTONS */
+.prev-btn, .next-btn {
+    position: absolute;
+    top: 45%;
+    transform: translateY(-50%);
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.prev-btn { left: 35%; }
+.next-btn { right: 35%; }
+
+/* DOTS */
+.dots {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 0 4px;
+    border-radius: 50%;
+    background: #bbb;
+    cursor: pointer;
+}
+
+.dot.active {
+    background: #333;
+}
+
+/* FOOTER */
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    background: #222;
+    color: white;
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGO -->
+<img src="BBLogo.png" class="logo" alt="Logo">
+
+<!-- MUSIC TOGGLE -->
+<img id="musicGif" src="visp.png" alt="music toggle">
+
+<!-- AUDIO -->
+<audio id="bgMusic" autoplay loop>
+    <source src="SpaceWalk.mp3" type="audio/mpeg">
+</audio>
+
+<!-- NOW PLAYING -->
+<div id="nowPlaying" class="nowPlaying">
+    <div class="scroll-text">Now Playing: SpaceWalk</div>
+</div>
+
+<!-- CAROUSEL -->
+<div class="carousel">
+    <div class="slides">
+        <div class="slide"><img src="R1.png"></div>
+        <div class="slide"><img src="R2.png"></div>
+        <div class="slide"><img src="R3.png"></div>
+        <div class="slide"><img src="R4.png"></div>
+        <div class="slide"><img src="R5.png"></div>
+        <div class="slide"><img src="R6.png"></div>
+        <div class="slide"><img src="R7.png"></div>
+        <div class="slide"><img src="R8.png"></div>
+    </div>
+
+    <img src="P.png" class="prev-btn" alt="Prev">
+    <img src="N.png" class="next-btn" alt="Next">
+</div>
+
+<!-- DOTS -->
+<div class="dots">
+    <span class="dot active"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+</div>
+
+<footer>© 2026 Build Battle Website</footer>
+
+<script>
+const music = document.getElementById("bgMusic");
+const btn = document.getElementById("musicGif");
+const nowPlaying=document.getElementById("nowPlaying")
+
+// Start music on the first click anywhere on the page
+document.addEventListener("click", async () => {
+    if (music.paused) {
+        try {
+            await music.play();
+            btn.src = "vis.gif";
+            nowPlaying.style.display="flex";
+        } catch (err) {
+            console.log(err);
+        }
+    }
+}, { once: true });
+
+// Music toggle when clicking the GIF
+btn.addEventListener("click", async (e) => {
+    // Prevent this click from also triggering the document click handler
+    e.stopPropagation();
+
+    if (music.paused) {
+        await music.play();
+        btn.src = "vis.gif";
+        nowPlaying.style.display="flex";
+    } else {
+        music.pause();
+        btn.src = "visp.png";
+        nowPlaying.style.display="none";
+    }
+});
+
+/* CAROUSEL */
+const slides = document.querySelector(".slides");
+const slide = document.querySelectorAll(".slide");
+const dots = document.querySelectorAll(".dot");
+
+let index = 0;
+
+function updateCarousel() {
+    slides.style.transform = `translateX(-${index * 100}%)`;
+
+    dots.forEach(d => d.classList.remove("active"));
+    dots[index].classList.add("active");
+}
+
+function nextSlide() {
+    index = (index + 1) % slide.length;
+    updateCarousel();
+}
+
+function prevSlide() {
+    index = (index - 1 + slide.length) % slide.length;
+    updateCarousel();
+}
+
+document.querySelector(".next-btn").onclick = nextSlide;
+document.querySelector(".prev-btn").onclick = prevSlide;
+
+dots.forEach((dot, i) => {
+    dot.onclick = () => {
+        index = i;
+        updateCarousel();
+    };
+});
+</script>
+
+</body>
+</html>
