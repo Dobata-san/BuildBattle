@@ -35,41 +35,92 @@ body {
     background: url("back.jpg") center/cover no-repeat fixed;
 }
 
-/* LOGO */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: auto;
+}
+
+.navbar img {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Invisible clickable areas */
+.navbar a {
+    position: absolute;
+    top: 0;
+    height: 100%;
+}
+
+/* Adjust these to match your image */
+.home {
+    left: 0;
+    width: 200px;
+}
+
+.rules {
+    left: 200px;
+    width: 200px;
+}
+
+.maps {
+    left: 400px;
+    width: 200px;
+}
+
+.contact {
+    left: 600px;
+    width: 200px;
+}
+
 .logo {
     position: absolute;
     top: 1%;
-    width: 200px;
+    left: -2;
+    width: 250px;
     height:auto;
     z-index: 1000;
 }
 
-/* MUSIC BUTTON (GIF) */
+.musicContainer {
+    position: fixed;
+    top: -14px;
+    right: 1%;
+    width: 80px;
+    height: 80px;
+    background: url("rad.png") center/cover no-repeat;
+}
+
+
 #musicGif {
     position: fixed;
-    top: 1%;
-    right: 2.2%;
-    width: 50px;
+    top: -8px;
+    right: 10.5%;
+    width: 80px;
     cursor: pointer;
     z-index: 1000;
 }
 
-/* NOW PLAYING */
 .nowPlaying {
     position: fixed;
-    top: 4%;
-    right: 1%;
-    width: 100px;
-    height: 50px;
+    top: 3.9%;
+    right: 7.5%;
+    width: 195px;
+    height: 60px;
     overflow: hidden;
     display: none;
     align-items: center;
     padding: 5px;
 }
- 
+
 .scroll-text {
     white-space: nowrap;
-    color: white;
+    color: black;
     font-size: 14px;
     animation: scrollLeft 6s linear infinite;
 }
@@ -79,7 +130,6 @@ body {
     to { transform: translateX(-100%); }
 }
 
-/* CAROUSEL */
 .carousel {
     width: 1280px;
     height: 720px;
@@ -144,7 +194,6 @@ body {
     background: #333;
 }
 
-/* FOOTER */
 footer {
     position: fixed;
     bottom: 0;
@@ -159,23 +208,29 @@ footer {
 
 <body>
 
-<!-- LOGO -->
+<div class="navbar">
+    <img src="nav.png" alt="">
+
+    <a href="index.html" class="home"></a>
+    <a href="rules.html" class="rules"></a>
+    <a href="maps.html" class="maps"></a>
+    <a href="contact.html" class="contact"></a>
+</div>
+
 <img src="BBLogo.png" class="logo" alt="Logo">
 
-<!-- MUSIC TOGGLE -->
+<div class="musicContainer">
 <img id="musicGif" src="visp.png" alt="music toggle">
+</div>
 
-<!-- AUDIO -->
-<audio id="bgMusic"  loop>
+<audio id="bgMusic" autoplay loop>
     <source src="AnotherMedium.m4a" type="audio/mpeg">
 </audio>
 
-<!-- NOW PLAYING -->
 <div id="nowPlaying" class="nowPlaying">
     <div class="scroll-text">Now Playing: Another Medium (UNDERTALE Soundtrack)</div>
 </div>
 
-<!-- CAROUSEL -->
 <div class="carousel">
     <div class="slides">
         <div class="slide"><img src="R1.png"></div>
@@ -192,7 +247,6 @@ footer {
     <img src="N.png" class="next-btn" alt="Next">
 </div>
 
-<!-- DOTS -->
 <div class="dots">
     <span class="dot active"></span>
     <span class="dot"></span>
@@ -207,40 +261,40 @@ footer {
 <footer>© 2026 Build Battle Website</footer>
 
 <script>
+
 const music = document.getElementById("bgMusic");
 const btn = document.getElementById("musicGif");
-const nowPlaying=document.getElementById("nowPlaying")
+const nowPlaying = document.getElementById("nowPlaying");
+const volumeSlider = document.getElementById("volumeSlider");
 
-// Start music on the first click anywhere on the page
+// Start music on first click anywhere
 document.addEventListener("click", async () => {
     if (music.paused) {
         try {
             await music.play();
             btn.src = "vis.gif";
-            nowPlaying.style.display="flex";
+            nowPlaying.style.display = "flex";
         } catch (err) {
             console.log(err);
         }
     }
 }, { once: true });
 
-// Music toggle when clicking the GIF
+// GIF play/pause button
 btn.addEventListener("click", async (e) => {
-    // Prevent this click from also triggering the document click handler
     e.stopPropagation();
 
     if (music.paused) {
         await music.play();
         btn.src = "vis.gif";
-        nowPlaying.style.display="flex";
+        nowPlaying.style.display = "flex";
     } else {
         music.pause();
         btn.src = "visp.png";
-        nowPlaying.style.display="none";
+        nowPlaying.style.display = "none";
     }
 });
 
-/* CAROUSEL */
 const slides = document.querySelector(".slides");
 const slide = document.querySelectorAll(".slide");
 const dots = document.querySelectorAll(".dot");
@@ -277,4 +331,3 @@ dots.forEach((dot, i) => {
 
 </body>
 </html>
-
