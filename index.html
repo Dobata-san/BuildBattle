@@ -42,18 +42,49 @@ body {
     transform: translateX(-50%);
     width: 100%;
     height: auto;
+    z-index: 1000;
 }
 
-.navbar img {
+.navBg {
     width: 100%;
     height: 100%;
     display: block;
 }
 
+.navbar a {
+    position: absolute;
+    z-index: 1000;
+}
+
+.navbar a img {
+    width: 240px;
+    height: 120px;
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+
+.navbar a img:hover {
+    transform: scale(1.05);
+}
+
+.home {
+    top: -8%;
+    left: 15%;
+}
+
+.regulations {
+    top: -8%;
+    left: 25.5%;
+}
+
+.leaderboard {
+    top: -8%;
+    left: 36%;
+}
 
 
 .logo {
-    position: absolute;
+    position: fixed;
     top: 1%;
     left: -2;
     width: 250px;
@@ -61,23 +92,20 @@ body {
     z-index: 1000;
 }
 
-.musicContainer {
-    position: fixed;
-    top: -14px;
-    right: 1%;
-    width: 80px;
-    height: 80px;
-    background: url("rad.png") center/cover no-repeat;
-}
-
-
 #musicGif {
     position: fixed;
-    top: -8px;
+    top: -9px;
     right: 10.5%;
-    width: 80px;
+    width: 75px;
+    height: 75px;
     cursor: pointer;
-    z-index: 1000;
+    z-index: 1005;
+    filter: brightness(0) invert(1);
+}
+
+#musicGif:hover {
+    filter: brightness(0) saturate(100%) invert(87%) sepia(30%) saturate(2664%)
+            hue-rotate(149deg) brightness(104%) contrast(98%);
 }
 
 .nowPlaying {
@@ -90,13 +118,15 @@ body {
     display: none;
     align-items: center;
     padding: 5px;
+        z-index: 1000;
 }
 
 .scroll-text {
     white-space: nowrap;
-    color: black;
+    color: white;
     font-size: 14px;
     animation: scrollLeft 6s linear infinite;
+        z-index: 1001;
 }
 
 @keyframes scrollLeft {
@@ -104,13 +134,55 @@ body {
     to { transform: translateX(-100%); }
 }
 
+.volumeContainer {
+    position: fixed;
+    top: 7.8%;
+    right: 7.5%;
+    width: 195px;
+    z-index: 1000;
+    display: flex;
+    gap:5px;
+}
+
+#volumeIcon{
+    width: 14px;
+    height: 14px;
+    object-ft: contain;}
+
+#volumeSlider {
+    --percent: 100%;
+
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+}
+
+#volumeSlider::-webkit-slider-runnable-track {
+    height: 4px;
+    border-radius: 999px;
+    background: linear-gradient(
+        to right,
+        #67E8F9 0%,
+        #67E8F9 var(--percent),
+        rgba(255,255,255,0.2) var(--percent),
+        rgba(255,255,255,0.2) 100%
+    );
+}
+
+#volumeSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 0px;
+    height: 0px;
+}
 .carousel {
+    position: fixed;
+    margin: 8% auto;
+    right: 16%;
     width: 1280px;
     height: 720px;
-    margin: 120px auto;
+    margin: 8% auto;
     overflow: hidden;
-    position: relative;
-
     background: url("BBR.png") center/cover no-repeat;
     border-radius: 10px;
 }
@@ -134,7 +206,6 @@ body {
     object-fit: cover;
 }
 
-/* BUTTONS */
 .prev-btn, .next-btn {
     position: absolute;
     top: 45%;
@@ -142,67 +213,63 @@ body {
     width: 80px;
     height: 80px;
     cursor: pointer;
-    z-index: 10;
+    z-index: 2000;
 }
 
-.prev-btn { left: 35%; }
-.next-btn { right: 35%; }
+.prev-btn:hover, .next-btn:hover{
+    transform: translateY(-50%) scale(1.05);
+    }
 
-/* DOTS */
-.dots {
-    text-align: center;
-    margin-top: -130px;
+.prev-btn {
+    left: 35%;
 }
 
-.dot {
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    margin: 0 4px;
-    border-radius: 50%;
-    background: #bbb;
-    cursor: pointer;
+.next-btn {
+    right: 35%;
 }
 
-.dot.active {
-    background: #333;
-}
-
-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    text-align: center;
-    padding: 10px;
-    background: #222;
-    color: white;
-}
 </style>
 </head>
 
 <body>
 
 <div class="navbar">
-    <img src="nav.png" alt="">
+    <img src="nav.png" class="navBg" alt="Navigation">
 
-    <a href="index.html" class="home"></a>
-    <a href="rules.html" class="rules"></a>
-    <a href="maps.html" class="maps"></a>
-    <a href="contact.html" class="contact"></a>
+    <a href="index.html" class="home">
+        <img id="homeBtn" src="B1.png" alt="Home">
+    </a>
+
+    <a href="regulations.html" class="regulations">
+        <img id="regulationsBtn" src="B2.png" alt="Regulations">
+    </a>
+
+    <a href="leaderboard.html" class="leaderboard">
+        <img id="leaderboardBtn" src="B3.png" alt="Leaderboard">
+    </a>
 </div>
 
 <img src="BBLogo.png" class="logo" alt="Logo">
 
-<div class="musicContainer">
 <img id="musicGif" src="visp.png" alt="music toggle">
-</div>
 
-<audio id="bgMusic" autoplay loop>
+<audio id="bgMusic" loop>
     <source src="AnotherMedium.m4a" type="audio/mpeg">
 </audio>
 
 <div id="nowPlaying" class="nowPlaying">
     <div class="scroll-text">Now Playing: Another Medium (UNDERTALE Soundtrack)</div>
+</div>
+
+<div id="volumeContainer" class="volumeContainer">
+    <img src="volume.png" id="volumeIcon" alt="Volume">
+    <input
+        type="range"
+        id="volumeSlider"
+        min="0"
+        max="1"
+        step="0.01"
+        value="1">
 </div>
 
 <div class="carousel">
@@ -217,31 +284,35 @@ footer {
         <div class="slide"><img src="R8.png"></div>
     </div>
 
-    <img src="P.png" class="prev-btn" alt="Prev">
-    <img src="N.png" class="next-btn" alt="Next">
-</div>
+    <img src="P.png" id="prev" class="prev-btn" alt="Prev">
+    <img src="N.png" id="next" class="next-btn" alt="Next">
 
-<div class="dots">
-    <span class="dot active"></span>
-    <span class="dot"></span>
-    <span class="dot"></span>
-    <span class="dot"></span>
-    <span class="dot"></span>
-    <span class="dot"></span>
-    <span class="dot"></span>
-    <span class="dot"></span>
-</div>
+    <audio id="uiClick" preload="auto">
+       <source src="page.wav" type="audio/wav">
+    </audio>
 
-<footer>© 2026 Build Battle Website</footer>
+</div>
 
 <script>
 
 const music = document.getElementById("bgMusic");
 const btn = document.getElementById("musicGif");
 const nowPlaying = document.getElementById("nowPlaying");
+
 const volumeSlider = document.getElementById("volumeSlider");
 
-// Start music on first click anywhere
+function updateVolume() {
+    music.volume = parseFloat(volumeSlider.value);
+
+    volumeSlider.style.setProperty(
+        "--percent",
+        `${volumeSlider.value * 100}%`
+    );
+}
+
+volumeSlider.addEventListener("input", updateVolume);
+updateVolume();
+
 document.addEventListener("click", async () => {
     if (music.paused) {
         try {
@@ -254,7 +325,22 @@ document.addEventListener("click", async () => {
     }
 }, { once: true });
 
-// GIF play/pause button
+function addHover(id, normal, hover) {
+    const btn = document.getElementById(id);
+
+    btn.addEventListener("mouseenter", () => {
+        btn.src = hover;
+    });
+
+    btn.addEventListener("mouseleave", () => {
+        btn.src = normal;
+    });
+}
+
+addHover("homeBtn", "B1.png", "B1a.png");
+addHover("regulationsBtn", "B2.png", "B2a.png");
+addHover("leaderboardBtn", "B3.png", "B3a.png");
+
 btn.addEventListener("click", async (e) => {
     e.stopPropagation();
 
@@ -270,37 +356,46 @@ btn.addEventListener("click", async (e) => {
 });
 
 const slides = document.querySelector(".slides");
-const slide = document.querySelectorAll(".slide");
-const dots = document.querySelectorAll(".dot");
+const slideItems = document.querySelectorAll(".slide");
 
-let index = 0;
+const prevBtn = document.getElementById("prev");
+const nextBtn = document.getElementById("next");
+
+const uiClick = document.getElementById("uiClick");
+uiClick.volume=0.2;
+
+function playClick() {
+    uiClick.currentTime = 0;
+    uiClick.play();
+}
+
+let currentSlide = 0;
 
 function updateCarousel() {
-    slides.style.transform = `translateX(-${index * 100}%)`;
+    slides.style.transform = `translateX(-${currentSlide * 100}%)`;
 
-    dots.forEach(d => d.classList.remove("active"));
-    dots[index].classList.add("active");
+    prevBtn.style.opacity = currentSlide === 0 ? "0" : "1";
+    nextBtn.style.opacity = currentSlide === slideItems.length - 1 ? "0" : "1";
 }
 
-function nextSlide() {
-    index = (index + 1) % slide.length;
-    updateCarousel();
-}
-
-function prevSlide() {
-    index = (index - 1 + slide.length) % slide.length;
-    updateCarousel();
-}
-
-document.querySelector(".next-btn").onclick = nextSlide;
-document.querySelector(".prev-btn").onclick = prevSlide;
-
-dots.forEach((dot, i) => {
-    dot.onclick = () => {
-        index = i;
+nextBtn.addEventListener("click", () => {
+    if (currentSlide < slideItems.length - 1) {
+        currentSlide++;
+        playClick();
         updateCarousel();
-    };
+    }
 });
+
+prevBtn.addEventListener("click", () => {
+    if (currentSlide > 0) {
+        currentSlide--;
+        playClick();
+        updateCarousel();
+    }
+});
+
+updateCarousel();
+
 </script>
 
 </body>
