@@ -6,6 +6,11 @@
 <title>Build Battle Regulations</title>
 
 <style>
+#wrapper {
+    margin-left:auto;
+    margin-right:auto;
+    width:1920px;
+}
 
 ::-webkit-scrollbar {
     display: none;
@@ -40,14 +45,13 @@ body {
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 100%;
+    width: 1920px;
     height: auto;
     z-index: 1000;
 }
 
 .navBg {
     width: 100%;
-    height: 100%;
     display: block;
 }
 
@@ -57,6 +61,7 @@ body {
 }
 
 .navbar a img {
+    position: absolute;
     width: 240px;
     height: 120px;
     transition: transform 0.2s;
@@ -68,34 +73,34 @@ body {
 }
 
 .home {
-    top: -8%;
-    left: 15%;
+    top: -10px;
+    left: 286px;
 }
 
 .regulations {
-    top: -8%;
-    left: 25.5%;
+    top: -10px;
+    left: 490px;
 }
 
 .leaderboard {
-    top: -8%;
-    left: 36%;
+    top: -10px;
+    left: 698px;
 }
 
 
 .logo {
-    position: fixed;
-    top: 1%;
-    left: -2;
+    position: absolute;
+    top: 10px;
+    left: -8px;
     width: 250px;
     height:auto;
-    z-index: 1000;
+    z-index: 1100;
 }
 
 #musicGif {
     position: fixed;
     top: -9px;
-    right: 10.5%;
+    right: 200px;
     width: 75px;
     height: 75px;
     cursor: pointer;
@@ -110,9 +115,9 @@ body {
 
 .nowPlaying {
     position: fixed;
-    top: 3.7%;
-    right: 7.5%;
-    width: 190px;
+    top: 37px;
+    right: 145px;
+    width: 195px;
     height: 60px;
     overflow: hidden;
     display: none;
@@ -136,8 +141,8 @@ body {
 
 .volumeContainer {
     position: fixed;
-    top: 7.6%;
-    right: 7.5%;
+    top: 75px;
+    right: 145px;
     width: 195px;
     z-index: 1000;
     display: flex;
@@ -176,12 +181,11 @@ body {
     height: 0px;
 }
 .carousel {
-    position: fixed;
-    margin: 8% auto;
+    position: absolute;
+    margin: 200px auto;
     right: 16%;
     width: 1280px;
     height: 720px;
-    margin: 8% auto;
     overflow: hidden;
     background: url("BBR.png") center/cover no-repeat;
     border-radius: 10px;
@@ -232,7 +236,6 @@ body {
 </head>
 
 <body>
-
 <div class="navbar">
     <img src="nav.png" class="navBg" alt="Navigation">
 
@@ -247,7 +250,7 @@ body {
     <a href="leaderboard.html" class="leaderboard">
         <img id="leaderboardBtn" src="B3.png" alt="Leaderboard">
     </a>
-</div>
+
 
 <img src="BBLogo.png" class="logo" alt="Logo">
 
@@ -270,6 +273,8 @@ body {
         max="1"
         step="0.01"
         value="1">
+</div>
+
 </div>
 
 <div class="carousel">
