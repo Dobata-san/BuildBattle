@@ -6,11 +6,6 @@
 <title>Build Battle Regulations</title>
 
 <style>
-#wrapper {
-    margin-left:auto;
-    margin-right:auto;
-    width:1920px;
-}
 
 ::-webkit-scrollbar {
     display: none;
@@ -34,24 +29,29 @@ body {
 }
 
 body {
-    margin: 0;
-    min-height: 100vh;
+    background-image: url("back.jpg");
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+}
 
-    background: url("back.jpg") center/cover no-repeat fixed;
+html, body {
+    overflow-x: hidden;
 }
 
 .navbar {
     position: fixed;
     top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 1920px;
+    left: 0;
+    width: 100vw;
     height: auto;
     z-index: 1000;
 }
 
 .navBg {
     width: 100%;
+    height: auto;
     display: block;
 }
 
@@ -62,49 +62,63 @@ body {
 
 .navbar a img {
     position: absolute;
-    width: 240px;
-    height: 120px;
-    transition: transform 0.2s;
-    cursor: pointer;
-}
-
-.navbar a img:hover {
-    transform: scale(1.05);
+    width: 12.5vw;
+    height: 6vw;
 }
 
 .home {
-    top: -10px;
-    left: 286px;
+    top: -5%;
+    left: 14.9%;
 }
 
 .regulations {
-    top: -10px;
-    left: 490px;
+    top: -5%;
+    left: 25.5%;
 }
 
 .leaderboard {
-    top: -10px;
-    left: 698px;
+    top: -5%;
+    left: 36.3%;
 }
 
+:root {
+    --nav-scale: 1;
+}
+
+@media (max-width: 1920px) {
+    :root {
+        --nav-scale: calc(100vw / 1920);
+    }
+}
 
 .logo {
     position: absolute;
     top: 10px;
-    left: -8px;
-    width: 250px;
+    left: 0;
+    width: 13vw;
+    max-width: 250px;
     height:auto;
     z-index: 1100;
 }
 
+.musicUI {
+    position: absolute;
+    top: 0;
+    left: 0px;
+    width: 100vw;
+    height: 120px;
+    z-index: 1100;
+}
+
 #musicGif {
-    position: fixed;
-    top: -9px;
-    right: 200px;
-    width: 75px;
-    height: 75px;
+    position: absolute;
+    top: -5%;
+    left: 85.6%;
+    width: 3.9vw;
+    max-width: 75px;
+    height: auto;
     cursor: pointer;
-    z-index: 1005;
+    z-index: 1200;
     filter: brightness(0) invert(1);
 }
 
@@ -114,24 +128,25 @@ body {
 }
 
 .nowPlaying {
-    position: fixed;
-    top: 37px;
-    right: 145px;
-    width: 195px;
-    height: 60px;
+    position: absolute;
+    top: 2vw;
+    left: 82.3%;
+    width: 10.2vw;
+    max-width: 195px;
+    height: 3vw;
     overflow: hidden;
     display: none;
     align-items: center;
     padding: 5px;
-        z-index: 1000;
+    z-index: 1200;
 }
 
 .scroll-text {
     white-space: nowrap;
     color: white;
-    font-size: 14px;
+    font-size: 0.75vw;
     animation: scrollLeft 6s linear infinite;
-        z-index: 1001;
+    z-index: 1001;
 }
 
 @keyframes scrollLeft {
@@ -140,18 +155,19 @@ body {
 }
 
 .volumeContainer {
-    position: fixed;
-    top: 75px;
-    right: 145px;
-    width: 195px;
-    z-index: 1000;
+    position: absolute;
+    top: 3.85vw;
+    left: 82.3%;
+    width: 10.2vw;
+    max-width: 195px;
+    z-index: 1100;
     display: flex;
     gap:5px;
 }
 
 #volumeIcon{
-    width: 14px;
-    height: 14px;
+    width: 0.7vw;
+    height: 0.7vw;
     object-ft: contain;}
 
 #volumeSlider {
@@ -182,12 +198,13 @@ body {
 }
 .carousel {
     position: absolute;
-    margin: 200px auto;
-    right: 16%;
-    width: 1280px;
-    height: 720px;
+    top: 10.4vw;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 66.7vw;
+    aspect-ratio: 16 / 9;
     overflow: hidden;
-    background: url("BBR.png") center/cover no-repeat;
+    background: url("BBR.png") center/contain no-repeat;
     border-radius: 10px;
 }
 
@@ -207,15 +224,15 @@ body {
 .slide img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 .prev-btn, .next-btn {
     position: absolute;
     top: 45%;
     transform: translateY(-50%);
-    width: 80px;
-    height: 80px;
+    width: 5vw;
+    height: 5vw;
     cursor: pointer;
     z-index: 2000;
 }
@@ -225,11 +242,30 @@ body {
     }
 
 .prev-btn {
-    left: 35%;
+    left: 22vw;
 }
 
 .next-btn {
-    right: 35%;
+    right: 22vw;
+}
+
+@media (max-width: 700px) {
+
+    .logo {
+        width: 120px;
+    }
+
+    #musicGif {
+        right: 20px;
+        width: 50px;
+        height: 50px;
+    }
+
+    .volumeContainer,
+    .nowPlaying {
+        display: none !important;
+    }
+
 }
 
 </style>
@@ -254,25 +290,32 @@ body {
 
 <img src="BBLogo.png" class="logo" alt="Logo">
 
-<img id="musicGif" src="visp.png" alt="music toggle">
+<div class="musicUI">
 
 <audio id="bgMusic" loop>
     <source src="AnotherMedium.m4a" type="audio/mpeg">
 </audio>
 
-<div id="nowPlaying" class="nowPlaying">
-    <div class="scroll-text">Now Playing: Another Medium (UNDERTALE Soundtrack)</div>
-</div>
+    <img id="musicGif" src="visp.png" alt="music toggle">
 
-<div id="volumeContainer" class="volumeContainer">
-    <img src="volume.png" id="volumeIcon" alt="Volume">
-    <input
-        type="range"
-        id="volumeSlider"
-        min="0"
-        max="1"
-        step="0.01"
-        value="1">
+    <div id="nowPlaying" class="nowPlaying">
+        <div class="scroll-text">
+            Now Playing: Another Medium (UNDERTALE Soundtrack)
+        </div>
+    </div>
+
+    <div id="volumeContainer" class="volumeContainer">
+        <img src="volume.png" id="volumeIcon" alt="Volume">
+
+        <input
+            type="range"
+            id="volumeSlider"
+            min="0"
+            max="1"
+            step="0.01"
+            value="1">
+    </div>
+
 </div>
 
 </div>
